@@ -3,6 +3,9 @@ set hidden
 set encoding=utf-8
 set path+=**
 
+" quick zshrc editing
+nnoremap <Leader>cz :e ~/.zshrc<cr>
+
 " quick vimrc editing
 nnoremap <Leader>cv :e $MYVIMRC<cr>
 if !exists('*ReloadVimrc')
@@ -17,19 +20,24 @@ autocmd! BufWritePost $MYVIMRC call ReloadVimrc()
 " plugins
 call plug#begin('~/vimfiles/plugged')
 
+"- looks
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-fugitive'
 
+"- git
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
+Plug 'airblade/vim-gitgutter'
+
+"- navigation
 Plug 'preservim/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'justinmk/vim-sneak'
+
+"- language features
 Plug 'neovim/nvim-lspconfig'
-
-Plug 'skywind3000/asynctasks.vim'
-Plug 'skywind3000/asyncrun.vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
 Plug 'vim-test/vim-test'
-
-Plug 'bakstenen/vim-envstack'
 
 call plug#end()
 
@@ -62,31 +70,39 @@ set shiftwidth=4
 set textwidth=0
 
 " keyboard shortcuts
-" nnoremap <C-p> :e 
 nnoremap <C-w>c :bd<CR>
 nnoremap <C-Tab> :bNext<CR>
-" nnoremap <Leader>b :ls<CR>:b
 
 " airline
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#coc#enabled = 0
-let g:airline_section_x = "%{fnamemodify(getcwd(), ':t')}"
+" let g:airline_section_x = "%{fnamemodify(getcwd(), ':t')}"
+let g:airline_section_x = ""
+let g:airline_section_b = ""
+let g:airline_section_y = ""
 
 " NERDTree (file browser)
 nnoremap <C-w>e :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$', '.git']
 let NERDTreeMinimalUI = 1
 
-" ctrlp
+" ctrlp (files and buffers)
 let g:ctrlp_working_path_mode = ""
 let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/](\.git|node_modules)$',
-    \ 'file': '\v\.(pyc)$'
+  \ 'dir': '\v[\/](\.git|node_modules)$',
+  \ 'file': '\v\.(pyc)$'
 \}
 nnoremap <C-p> :CtrlP<CR>
 nnoremap <Leader>b :CtrlPBuffer<CR>
 
-" Lsp
+" grep (file contents)
+command -nargs=1 ProjSearch vimgrep /<args>/gj **/*.py | cw | redraw!
+nnoremap <leader>f :ProjSearch 
+
+" vim sneak (jump motion, s)
+let g:sneak#label = 1
+
+" lsp
 if has('win32')
     let $PATH.=';' . stdpath("data") . '\lsp\python\node_modules\.bin'
     let $PATH.=';' . stdpath("data") . '\lsp\vim\node_modules\.bin'
@@ -99,8 +115,8 @@ lua require('lspconfig').vimls.setup{}
 
 nnoremap <silent> <leader>i :lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <leader>d :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-" nnoremap <expr> <Leader>i lua vim.tbl_isempty(vim.lsp.diagnostic.get_line_diagnostics()) ? 'lua vim.diagnostic.open_float()<CR>' : ':lua vim.lsp.buf.hover()<CR>'
-inoremap <C-Space> <C-x><C-o>
+nnoremap <silent> <leader>dl :lua vim.lsp.diagnostic.set_loclist()<CR>
+inoremap <tab> <C-x><C-o>
 set omnifunc=v:lua.vim.lsp.omnifunc
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 nnoremap <expr> <Leader>q len(filter(getwininfo(), 'v:val.quickfix && !v:val.loclist')) != 0 ? ':cclose<CR>' : ':copen<CR>'
@@ -115,36 +131,38 @@ lua <<EOF
     })
 EOF
 
-" asynctasks
-let g:asynctasks_config_name = '.vim/tasks.ini'
-let g:asyncrun_open = 6
-let g:asynctasks_term_pos = 'right'
-nnoremap <Leader>ct :AsyncTaskEdit<cr>
-nnoremap <silent><f5> :AsyncTask npm-start<cr>
-"nnoremap <Leader>ct :e $MYVIMRC<cr>
-
-" config files
-" vimrc (\cv), global env (\ce), project env (\cl), coc (\cc), async tasks (\ct)
+" treesitter
+lua <<EOF
+    require 'nvim-treesitter.configs'.setup {
+        highlight = {enable = true, additional_vim_regex_highlighting = false}
+    }
+EOF
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldlevel=99
 
 " sessions
 set wildmenu
 set wildmode=full
 set wildignorecase
-let g:sessions_dir = '~/vimfiles/sessions'
+let g:sessions_dir = stdpath("data") . '/sessions'
 exec 'nnoremap <Leader>ss :mks!' . g:sessions_dir . '/'
 exec 'nnoremap <Leader>sr :so ' . g:sessions_dir . '/'
 exec 'nnoremap <Leader>sR :silent ! start /I nvim-qt -- -S ' . g:sessions_dir . '/'
-" autocmd! SessionLoadPost * let g:latest_session=v:this_session " useful to load environment?
-" execute ':so ' . g:sessions_dir . '/vim_playground.vim'
 nnoremap <expr> <Leader>cs ":edit " . v:this_session . "<cr>"
-
-" grep
-command -nargs=1 ProjSearch vimgrep /<args>/gj **/*.py | cw | redraw!
-nnoremap <leader>f :ProjSearch 
 
 " terminal
 tnoremap <Esc> <C-\><C-n>
 nnoremap <expr> <Leader>t expand('%') =~ 'term://' ? ':close<CR>' : ':split \| terminal<CR>a'
 tnoremap <Leader>t <C-\><C-n>:bd!<CR>
 
+" vimtest
+let test#strategy='neovim'
+let test#python#runner='pytest'
+let test#python#pytest#executable='python -m pytest'  " run without pipenv
+let test#python#pytest#options='-rA --disable-warnings -vv --tb=native'
 
+nmap <silent> tn :TestNearest<CR>
+nmap <silent> tf :TestFile<CR>
+nmap <silent> ts :TestSuite<CR>
+nmap <silent> tl :TestLast<CR>
