@@ -58,43 +58,43 @@ _DockerFile does not work on Apple-silicon; compile targets are missing. Scripts
 ## basics
 
 ### tmux
-`tmux` start new tmux session
-`tmux attach` attach to last tmux session
+- `tmux` start new tmux session
+- `tmux attach` attach to last tmux session
 
 in tmux
-pfx = [C-space] prefix; all tmux keybindings start with this (indicated top-left TMUX mode)
-pfx,q close pane
-pfx,Q close window
-pfx,d detach from tmux session
-pfx,[hjkl] go to pane in that direction
-pfx,s split pane vertically
-pfx,v split pane horizontally
-pfx,z zoom pane to fullscreen
-pfx,n rename pane
-pfx,N rename window
-pfx,[ enter copy mode (for scrolling back)
+- pfx = [C-space] prefix; all tmux keybindings start with this (indicated top-left TMUX mode)
+- pfx,q close pane
+- pfx,Q close window
+- pfx,d detach from tmux session
+- pfx,[hjkl] go to pane in that direction
+- pfx,s split pane vertically
+- pfx,v split pane horizontally
+- pfx,z zoom pane to fullscreen
+- pfx,n rename pane
+- pfx,N rename window
+- pfx,[ enter copy mode (for scrolling back)
 
 while in copy mode (indicated top-left):
-[hjkl] move cursor around
-C-u scroll up
-C-d scroll down
+- [hjkl] move cursor around
+- C-u scroll up
+- C-d scroll down
 
 ### helix
-`hx` start helix
-`hx --health` check language features (installed lsps)
-`hx --tutor` run helix tutorial to get familiar with basics
+- `hx` start helix
+- `hx --health` check language features (installed lsps)
+- `hx --tutor` run helix tutorial to get familiar with basics
 
 modified keys from defaults
 - moving through syntax tree
-	A-h expand selection to parent scope
-	A-j select next sibling
-	A-k select previous sibling
-	A-l shrink selection to child scope
+	- A-h expand selection to parent scope
+	- A-j select next sibling
+	- A-k select previous sibling
+	- A-l shrink selection to child scope
 - align walking through selections to similar keys for walking through search results
-	A-n rotate selections forward
-	A-N rotate selections backward
+	- A-n rotate selections forward
+	- A-N rotate selections backward
 - integrated git user interface (**only works within tmux as it uses window-splits**)
-	C-g open lazygit
+	- C-g open lazygit
 
 ## notes
 To run command in vertical split and close on command success:
