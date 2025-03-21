@@ -1,5 +1,7 @@
 # Minimalist Linux development environment
 
+![screenshot](sample.png)
+
 ## features
 - all runtime dependencies are stored in a centralized location ($SCRATCH)
 	- lsp runtimes

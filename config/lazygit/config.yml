@@ -6,5 +6,5 @@ gui:
   showCommandLog: false
 notARepository: 'quit'
 os:
-  editCommand: 'hx'
-  editCommandTemplate: '{{editor}} {{filename}}:{{line}}'
+  edit: 'hx {{filename}}'
+  editAtLine: 'hx {{filename}}:{{line}}'
