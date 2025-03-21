@@ -1,0 +1,21 @@
+[[language-server.typescript-language-server.config.plugins]]
+name = "@vue/typescript-plugin"
+location = "/Users/bas/SCRATCH/packages_node/node_modules/@vue/language-server"
+languages = ["vue"]
+
+[language-server.typescript-language-server.config.vue.inlayHints]
+includeInlayEnumMemberValueHints = true
+includeInlayFunctionLikeReturnTypeHints = true
+includeInlayFunctionParameterTypeHints = true
+includeInlayParameterNameHints = "all"
+includeInlayParameterNameHintsWhenArgumentMatchesName = true
+includeInlayPropertyDeclarationTypeHints = true
+includeInlayVariableTypeHints = true
+
+[language-server.vuels.config]
+typescript.tsdk = "/Users/bas/SCRATCH/packages_node/node_modules/typescript/lib/"
+hybridMode = true
+
+[[language]]
+name = "vue"
+language-servers = [ "typescript-language-server", "vuels" ]

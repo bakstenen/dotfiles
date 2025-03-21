@@ -1,0 +1,10 @@
+gui:
+  showFileTree: false
+  showListFooter: false
+  showRandomTip: false
+  showBottomLine: false
+  showCommandLog: false
+notARepository: 'quit'
+os:
+  editCommand: 'hx'
+  editCommandTemplate: '{{editor}} {{filename}}:{{line}}'

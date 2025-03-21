@@ -1,0 +1,66 @@
+theme = "everforest_dark"
+
+[editor]
+line-number = "relative"
+rulers = [80]
+gutters = ["diagnostics", "diff", "line-numbers", "spacer"]
+color-modes = true
+true-color = true
+idle-timeout = 100
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+
+[editor.lsp]
+# auto-signature-help = false
+# display-inlay-hints = true
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "block"
+
+[editor.whitespace.render]
+space = "all"
+tab = "none"
+newline = "none"
+
+[editor.indent-guides]
+render = true
+character = "+"
+skip-levels = 1
+
+[editor.statusline]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.smart-tab]
+enable = false
+
+[editor.file-picker]
+hidden = false
+
+[keys.normal]
+A-h = "expand_selection"
+A-j = "select_next_sibling"
+A-k = "select_prev_sibling"
+A-l = "shrink_selection"
+
+A-n = "rotate_selections_forward"
+A-N = "rotate_selections_backward"
+
+i = ["collapse_selection", "insert_mode", "collapse_selection"]
+a = ["collapse_selection", "append_mode", "collapse_selection"]
+D = "kill_to_line_end"
+C-g = ":sh tmux split-window -v -Z -c \"#{pane_current_path}\" && tmux send-keys \"lazygit -ucd ~/.config/lazygit ; tmux kill-pane -t \\$TMUX_PANE\" C-m"
+
+# F5 = ":sh make all"
+# F5 = ":sh cargo run | tail -n 300 || true"
+# F5 = ":sh pipenv run python main.py || true"
+F6 = ":sh pipenv run python scratch.py || true"
+
+'F5' = ":sh kitty pipenv run test"
+# 'F5' = ":sh gnome-terminal --command='python -m pytest -s -rA --disable-warnings -vv --tb=native path/to/file.py::TestClass::test_method'"
+# 'F6' = ":sh python -m pytest -s -rA --disable-warnings --no-header -vv --tb=native path/to/file.py::TestClass::test_method || true"
+# 'F7' = ":sh python -m pytest --disable-warnings --no-header --cov=some/sub/dir|| true"

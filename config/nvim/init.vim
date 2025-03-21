@@ -116,10 +116,32 @@ if has('win32')
 else
     let $PATH.=':' . stdpath("data") . '/lsp/python/node_modules/.bin'
     let $PATH.=':' . stdpath("data") . '/lsp/vim/node_modules/.bin'
+    let $PATH.=':/opt/homebrew/bin'
 endif
 lua require('lspconfig').pyright.setup{}
 lua require('lspconfig').vimls.setup{}
+lua require('lspconfig').clangd.setup{}
 lua require('lspconfig').sourcekit.setup{}
+lua <<EOF
+require('lspconfig').sumneko_lua.setup{
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = {'vim'},
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+EOF
 
 nnoremap <silent> <leader>i :lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <leader>d :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
@@ -142,7 +164,10 @@ EOF
 " treesitter
 lua <<EOF
     require 'nvim-treesitter.configs'.setup {
-        highlight = {enable = true, additional_vim_regex_highlighting = false}
+        highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = false,
+        }
     }
 EOF
 set foldmethod=expr
@@ -184,7 +209,7 @@ lua <<EOF
                 { id = "scopes", size = 0.25 },
                 "breakpoints",
                 --"stacks",
-                --"watches",
+                "watches",
               },
               size = 40, -- 40 columns
               position = "left",
