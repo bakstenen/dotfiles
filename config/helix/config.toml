@@ -3,10 +3,11 @@ theme = "everforest_dark"
 [editor]
 line-number = "relative"
 rulers = [80]
-gutters = ["diagnostics", "diff", "line-numbers", "spacer"]
+gutters = ["diagnostics", "spacer", "line-numbers", "diff"]
 color-modes = true
 true-color = true
-idle-timeout = 100
+idle-timeout = 80
+auto-format = false
 
 [editor.inline-diagnostics]
 cursor-line = "warning"
@@ -38,10 +39,29 @@ mode.select = "SELECT"
 [editor.smart-tab]
 enable = false
 
+[editor.soft-wrap]
+wrap-at-text-width = true
+
 [editor.file-picker]
 hidden = false
 
+[keys.insert]
+C-u = ["move_prev_word_start", "switch_to_uppercase", "move_next_word_end", "move_char_right"]
+
+[keys.select]
+A-n = "rotate_selections_forward"
+A-N = "rotate_selections_backward"
+
+x = "select_line_below"
+X = "select_line_above"
+
+t = "remove_selections"
+T = "keep_selections"
+
+Y = ":yank-join"
+
 [keys.normal]
+"=" = ["extend_to_line_bounds", ":pipe xargs -0 -t -I % black --line-length 79 -c \"%\"", "move_char_right", "insert_newline"]
 A-h = "expand_selection"
 A-j = "select_next_sibling"
 A-k = "select_prev_sibling"
@@ -50,17 +70,28 @@ A-l = "shrink_selection"
 A-n = "rotate_selections_forward"
 A-N = "rotate_selections_backward"
 
+x = "select_line_below"
+X = "select_line_above"
+
+t = "remove_selections"
+T = "keep_selections"
+
+Y = ":yank-join"
+
 i = ["collapse_selection", "insert_mode", "collapse_selection"]
 a = ["collapse_selection", "append_mode", "collapse_selection"]
 D = "kill_to_line_end"
-C-g = ":sh tmux split-window -v -Z -c \"#{pane_current_path}\" && tmux send-keys \"lazygit -ucd ~/.config/lazygit ; tmux kill-pane -t \\$TMUX_PANE\" C-m"
+# C-g = ":sh tmux split-window -v -Z -c \"#{pane_current_path}\" && tmux send-keys \"lazygit -ucd ~/.config/lazygit ; tmux kill-pane -t \\$TMUX_PANE\" C-m"
+C-g = ":sh tmx -z -c -- lazygit -ucd ~/.config/lazygit"
 
+# F5.t = ":echo %sh{test_runner.py --path %{buffer_name} --line %{cursor_line}}"
 # F5 = ":sh make all"
 # F5 = ":sh cargo run | tail -n 300 || true"
 # F5 = ":sh pipenv run python main.py || true"
 F6 = ":sh pipenv run python scratch.py || true"
 
-'F5' = ":sh kitty pipenv run test"
+# 'F5' = ":sh kitty pipenv run test"
+'F5' = ":sh tmx -s -- pipenv run test"
 # 'F5' = ":sh gnome-terminal --command='python -m pytest -s -rA --disable-warnings -vv --tb=native path/to/file.py::TestClass::test_method'"
 # 'F6' = ":sh python -m pytest -s -rA --disable-warnings --no-header -vv --tb=native path/to/file.py::TestClass::test_method || true"
 # 'F7' = ":sh python -m pytest --disable-warnings --no-header --cov=some/sub/dir|| true"

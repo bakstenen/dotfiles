@@ -1,0 +1,29 @@
+#!/bin/bash
+
+direction="-v"
+zoomed=''
+post='tmux kill-pane -t $TMUX_PANE'
+chain='&&'
+parsing_command=false
+command=''
+
+# parse options
+while [[ "$#" -gt 0 ]]; do
+  if [ $parsing_command = true ]; then
+    command="$command $1"
+  else
+    case $1 in
+      --) parsing_command=true;;
+      -v) direction="-v";;
+      -h) direction="-h";;
+      -z) zoomed="-Z";;
+      -k) post=""; chain="";;
+      -c) chain=";";;
+      -s) chain="&&";;
+      *) echo "Unknown parameter passed: $1"; exit 1;;
+    esac
+  fi
+  shift
+done
+
+tmux split-window $direction $zoomed -c $(pwd) && tmux send-keys "$command $chain $post" C-m

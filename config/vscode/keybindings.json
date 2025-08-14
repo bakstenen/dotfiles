@@ -1,0 +1,29 @@
+[
+{
+  "key": "ctrl+shift+q",
+  "command": "workbench.action.toggleSidebarVisibility"
+},{
+  "key": "ctrl+shift+t",
+  "command": "workbench.view.testing.focus"
+},{
+  "key": "ctrl+alt+p",
+  "command": "projectManageer.listProjects"
+},{
+  "key": "ctrl+shift+alt+p",
+  "command": "projectManager.listProjectsNewWindow"
+},{
+  "key": "ctrl+oem_7",
+  "command": "workbench.action.terminal.focus",
+  "when": "!terminallFocus"
+},{
+  "key": "ctrl+oem_7",
+  "command": "workbench.action.terminal.toggleTerminal",
+  "when": "terminalFocus",
+},{
+  "key": "ctrl+z",
+  "command": "workbench.action.toggleZenMode",
+},{
+  "key": "ctrl+shift+c",
+  "command": "workbench.action.quickchat.toggle"
+}
+]

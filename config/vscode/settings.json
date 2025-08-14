@@ -1,0 +1,71 @@
+{
+  "workbench.colorTheme": "everest-moist-dark",
+  "workbench.colorCustomizations": {
+    "panel.border": "#bf4125",
+    "editorGroup.border": "#bf4125",
+    "titleBar.activeBackground": "#0e6d7e",
+    "titleBar.inactiveBackground": "#5d7a7f",
+    "titleBar.border": "#0fd4f7",
+    "statusBar.border": "#0fd4f7",
+  },
+  "workbench.activityBar.location": "hidden",
+  "workbench.editor.showTabs": "single",
+  "breadcrumbs.enabled": false,
+  "editor.minimap.enabled": false,
+  "editor.rulers": [80],
+  "editor.selectionHighlight": false,
+  "editor.occurencesHighlight": "off",
+  "editor.folding": false,
+  "editor.guides.indentation": false,
+  "editor.guides.highlightActiveBracketPair": false,
+  "editor.renderWhitespace": "trailing",
+  "editor.overviewRulerBorder": false,
+  "editor.scrollbar.horizontal": "hidden",
+
+  "testing.gutterEnabled": false,
+  "workbench.layoutControl.enabled": false,
+  "window.commandCenter": false,
+  "git.openRepositoryInParentFolders": "never",
+  "terminal.integrated.enablePersistentSessions": false,
+  "terminal.integrated.persistentSessionReviveProcess": "never",
+  "diffEditor.hideUnchangedRegions.enabled": true,
+  "extensions.ignoreRecommendations": true,
+  "workbench.remoteIndicator.showExtensionRecommendations": false,
+
+  "zenMode.fullScreen": false,
+  "zenMode.hideLineNumbers": false,
+  "zenMode.centerLayout": false,
+  "zenMode.showTabs": "single",
+  "zenMode.hideStatusBar": false,
+  "window.zoomLevel": 1,
+  "remote.SSH.remotePlatform": {
+    // "some.address": "linux"
+  },
+  "remote.SSH.serverIstallPath": {
+    // "some.address": "/some/path/to/store/vscode/files"
+  },
+
+  "python.analysis.extraPaths": [
+    // "/path/to/local/code"
+  ],
+  "python.autoComplete.extraPaths": [
+    // "/path/to/local/code"
+  ],
+  "python.testing.pytestArgs": [
+    "-s",
+    "-rA",
+    "--disable-warnings",
+    "--tb=native",
+    // "--basetemp=/some/location",
+    "."
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "python.envFile": "${workspaceFolder}/.env",
+  "python.experiments.optInto": [
+    "pythonTerminalEnvVarActivation"
+  ],
+  "python.experiments.optOutFrom": [
+    "pythonTestAdapter"
+  ],
+}

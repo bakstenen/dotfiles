@@ -27,4 +27,4 @@ if [[ -e "${PACKAGES_DIR}" ]]; then
   rm -r ${PACKAGES_DIR}
 fi
 
-python3 -m pip install -t ${PACKAGES_DIR} virtualenv pipenv setuptools ruff python-lsp-ruff sphinx sphinx-js
+python3 -m pip install -t ${PACKAGES_DIR} virtualenv pipenv setuptools python-lsp-server ruff python-lsp-ruff pylsp-mypy pipedeptree sphinx sphinx-js

@@ -51,8 +51,8 @@ Config files live in "config" and represents XDG_CONFIG_HOME ("~/.config")
 The installation process symlinks these
 
 ## test
-run `start.sh` to open a command line interface in a docker container to a blank linux install and setup all the tools from scratch
-Update $USER_ROOT in this script to point to a folder of code you want to test on. This gets mounted in the container as read only. Remove ":ro" from bind to make editable
+run `start.sh` to open a command line interface in a docker container to a blank linux install and setup all the tools from scratch.
+Update $USER_ROOT in this script to point to a folder of code you want to test on. This gets mounted in the container as read only. Remove ":ro" from bind to make editable.
 _DockerFile does not work on Apple-silicon; compile targets are missing. Scripts can still be tested_
 
 ## basics

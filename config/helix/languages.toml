@@ -19,3 +19,24 @@ hybridMode = true
 [[language]]
 name = "vue"
 language-servers = [ "typescript-language-server", "vuels" ]
+
+[language-server.pylsp.config.pylsp.plugins.pylsp_mypy]
+live_mode = false
+dmypy = false
+# dmypy_status_file = "/some/path/.dmypy.json"
+overrides = ["--ignore-missing-imports", "--disable-error-code=var-annotated", true]
+# dmypy_command = ["dmypy", "--timeout", "20"]  # cannot get it injected in correct place
+
+[language-server.pylsp.config.pylsp.plugins.ruff]
+enabled = true
+formatEnabled = true
+lineLength = 79
+executable = "ruff"
+extendSelect = ["A", "E", "F", "W", "ASYNC", "C4"]  # Q
+extendIgnore = ["E501"]
+
+# [[language]]
+# name = "python"
+# language-servers = [ "pylsp" ]
+# formatter = { command = "ruff", args = ["format", "--line-length", "79", "-"]}
+# auto-format = false
